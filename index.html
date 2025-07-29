@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" class="dark"> <!-- Start in dark mode by default -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Class Predictor</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Custom Styles and Tailwind Config -->
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5', 100: '#d1fae5', 200: '#a7f3d0', 300: '#6ee7b7',
+                            400: '#34d399', 500: '#10b981', 600: '#059669', 700: '#047857',
+                            800: '#065f46', 900: '#064e3b', 950: '#022c22',
+                        },
+                        slate: {
+                            50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1',
+                            400: '#94a3b8', 500: '#64748b', 600: '#475569', 700: '#334155',
+                            800: '#1e293b', 900: '#0f172a', 950: '#020617',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-200 flex items-center justify-center min-h-screen p-4 transition-all-smooth relative">
+
+    <!-- Decorative background -->
+    <div class="background-shapes">
+        <div class="shape1"></div>
+        <div class="shape2"></div>
+        <div class="shape3"></div>
+    </div>
+
+    <!-- Main container with glassmorphism effect -->
+    <div class="w-full max-w-6xl mx-auto bg-white/5 dark:bg-slate-900/40 backdrop-blur-xl rounded-2xl shadow-2xl shadow-slate-500/10 dark:shadow-black/30 overflow-hidden border border-white/10">
+        
+        <!-- Header Section -->
+        <div class="p-6 relative border-b border-white/10 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <div class="bg-emerald-500/10 p-3 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-500"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <div>
+                    <h1 class="text-2xl md:text-4xl font-bold text-slate-900 dark:text-white">Salary Predictor</h1>
+                    
+                </div>
+            </div>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" type="button" class="text-slate-500 dark:text-slate-400 hover:bg-white/20 dark:hover:bg-slate-700/50 focus:outline-none focus:ring-4 focus:ring-slate-200 dark:focus:ring-slate-700 rounded-lg text-sm p-2.5" aria-label="Toggle dark and light mode" title="Toggle Theme">
+                <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-5">
+            <!-- Input Form Section -->
+            <form id="prediction-form" class="lg:col-span-3 p-6 md:p-8 space-y-6">
+                <!-- Grid for form fields -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <!-- Custom Number Inputs -->
+                    <div>
+                        <label for="age" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Age</label>
+                        <div class="relative mt-1">
+                            <input type="number" name="age" id="age" value="30" class="form-input block w-full p-2.5 pr-10 border border-white/10 bg-white/10 dark:bg-slate-800/30 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all-smooth">
+                            <div class="absolute inset-y-0 right-0 flex flex-col items-center justify-center pr-1">
+                                <button type="button" tabindex="-1" class="h-1/2 px-2 text-slate-500 hover:text-emerald-500" onclick="adjustNumber('age', 1)" title="Increase Age"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg></button>
+                                <button type="button" tabindex="-1" class="h-1/2 px-2 text-slate-500 hover:text-emerald-500" onclick="adjustNumber('age', -1)" title="Decrease Age"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="educational-num" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Education Years</label>
+                        <div class="relative mt-1">
+                            <input type="number" name="educational-num" id="educational-num" value="9" class="form-input block w-full p-2.5 pr-10 border border-white/10 bg-white/10 dark:bg-slate-800/30 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all-smooth">
+                            <div class="absolute inset-y-0 right-0 flex flex-col items-center justify-center pr-1">
+                                <button type="button" tabindex="-1" class="h-1/2 px-2 text-slate-500 hover:text-emerald-500" onclick="adjustNumber('educational-num', 1)" title="Increase Education Years"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg></button>
+                                <button type="button" tabindex="-1" class="h-1/2 px-2 text-slate-500 hover:text-emerald-500" onclick="adjustNumber('educational-num', -1)" title="Decrease Education Years"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="hours-per-week" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Hours/Week</label>
+                        <div class="relative mt-1">
+                            <input type="number" name="hours-per-week" id="hours-per-week" value="40" class="form-input block w-full p-2.5 pr-10 border border-white/10 bg-white/10 dark:bg-slate-800/30 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all-smooth">
+                             <div class="absolute inset-y-0 right-0 flex flex-col items-center justify-center pr-1">
+                                <button type="button" tabindex="-1" class="h-1/2 px-2 text-slate-500 hover:text-emerald-500" onclick="adjustNumber('hours-per-week', 1)" title="Increase Hours/Week"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg></button>
+                                <button type="button" tabindex="-1" class="h-1/2 px-2 text-slate-500 hover:text-emerald-500" onclick="adjustNumber('hours-per-week', -1)" title="Decrease Hours/Week"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="fnlwgt" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Final Weight</label>
+                         <div class="relative mt-1">
+                            <input type="number" name="fnlwgt" id="fnlwgt" value="77516" class="form-input block w-full p-2.5 pr-10 border border-white/10 bg-white/10 dark:bg-slate-800/30 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all-smooth">
+                             <div class="absolute inset-y-0 right-0 flex flex-col items-center justify-center pr-1">
+                                <button type="button" tabindex="-1" class="h-1/2 px-2 text-slate-500 hover:text-emerald-500" onclick="adjustNumber('fnlwgt', 1000)" title="Increase Fnlwgt"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg></button>
+                                <button type="button" tabindex="-1" class="h-1/2 px-2 text-slate-500 hover:text-emerald-500" onclick="adjustNumber('fnlwgt', -1000)" title="Decrease Fnlwgt"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                            </div>
+                        </div>
+                    </div>
+                     <div>
+                        <label for="capital-gain" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Capital Gain</label>
+                         <div class="relative mt-1">
+                            <input type="number" name="capital-gain" id="capital-gain" value="0" class="form-input block w-full p-2.5 pr-10 border border-white/10 bg-white/10 dark:bg-slate-800/30 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all-smooth">
+                             <div class="absolute inset-y-0 right-0 flex flex-col items-center justify-center pr-1">
+                                <button type="button" tabindex="-1" class="h-1/2 px-2 text-slate-500 hover:text-emerald-500" onclick="adjustNumber('capital-gain', 100)" title="Increase Capital Gain"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg></button>
+                                <button type="button" tabindex="-1" class="h-1/2 px-2 text-slate-500 hover:text-emerald-500" onclick="adjustNumber('capital-gain', -100)" title="Decrease Capital Gain"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                            </div>
+                        </div>
+                    </div>
+                     <div>
+                        <label for="capital-loss" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Capital Loss</label>
+                        <div class="relative mt-1">
+                            <input type="number" name="capital-loss" id="capital-loss" value="0" class="form-input block w-full p-2.5 pr-10 border border-white/10 bg-white/10 dark:bg-slate-800/30 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all-smooth">
+                             <div class="absolute inset-y-0 right-0 flex flex-col items-center justify-center pr-1">
+                                <button type="button" tabindex="-1" class="h-1/2 px-2 text-slate-500 hover:text-emerald-500" onclick="adjustNumber('capital-loss', 100)" title="Increase Capital Loss"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg></button>
+                                <button type="button" tabindex="-1" class="h-1/2 px-2 text-slate-500 hover:text-emerald-500" onclick="adjustNumber('capital-loss', -100)" title="Decrease Capital Loss"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Custom Dropdowns -->
+                    <div id="workclass-dropdown"></div>
+                    <div id="marital-status-dropdown"></div>
+                    <div id="occupation-dropdown"></div>
+                    <div id="relationship-dropdown"></div>
+                    <div id="race-dropdown"></div>
+                    <div id="gender-dropdown"></div>
+                </div>
+                 <div id="native-country-dropdown"></div>
+                <div class="pt-4">
+                    <!-- Submit button with gradient and hover effect -->
+                    <button type="submit" class="w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-md shadow-lg text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 dark:focus:ring-offset-slate-800 transition-all-smooth transform hover:scale-105">
+                        <span id="button-text">Predict Salary</span>
+                        <svg id="spinner" class="animate-spin ml-3 h-5 w-5 text-white hidden" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Result Panel Section -->
+            <div id="result-panel" class="lg:col-span-2 p-6 md:p-8 flex flex-col items-center justify-center bg-white/5 dark:bg-black/20 transition-all-smooth lg:rounded-r-2xl">
+                <div id="initial-message" class="text-center">
+                    <svg class="mx-auto h-16 w-16 text-slate-400 dark:text-slate-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>
+                    <h2 class="mt-4 text-lg font-medium text-slate-900 dark:text-white">Prediction Result</h2>
+                    <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Your result will be displayed here.</p>
+                </div>
+                <div id="result-display" class="text-center hidden w-full">
+                    <p class="text-base font-medium text-slate-500 dark:text-slate-400">Predicted Salary Class</p>
+                    <div id="result-box" class="mt-4 p-6 rounded-lg transition-all-smooth w-full max-w-sm mx-auto border">
+                        <p id="predicted-class" class="text-4xl font-bold"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
